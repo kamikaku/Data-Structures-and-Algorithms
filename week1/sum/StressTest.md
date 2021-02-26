@@ -76,5 +76,26 @@ while(true){
 }
 ```
 通过不断输入长度与数值都不同的随机数列来对代码进行压力测试。
-
+***
+通过测试是可以得知，在数列中如果包含了另一个和最大值相同的值比如`{5,5,1}`那么第二种方案会选择5和1来进行配对，因为`numbers[j]!=numbers[max_index1]`把另外一个5排除了。  
+因此正确的解决方案需要将条件改为`j!=max_index1`。
+```
+long long MaxPairwiseProductFast(const vector<int>& numbers){
+  int n = numbers.size();
+  int max_index1 = -1;
+  for(int i=0; i<n; i++){
+    if(max_index1 == -1 || numbers[i]>numbers[max_index1])
+      max_index1= i
+  }
+  int max_index2 = -1;
+  for(int j=0; j<n; j++){
+    if((j!=max_index1) && ((max_index2 == -1) || (numbers[j]>numbers[max_index2])))
+    max_index2 = j;
+  }
+  
+  long long result = (long long)(numbers[max_index1]) * numbers[max_index2]
+  return result;
+}
+```
+以上代码可以通过测试。
 
